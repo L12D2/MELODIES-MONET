@@ -1069,8 +1069,15 @@ class analysis:
                 self.obs[o.label] = o
 
     def setup_obs_grid(self):
-        """
-        Setup a uniform observation grid.
+        """Create a uniform observation grid for accumulating swath data.
+
+        Reads ``obs_grid`` configuration (start_time, end_time, ntime, nlat, nlon)
+        from the control dictionary and initializes:
+
+        - :attr:`obs_grid` — grid center coordinates (longitude, latitude, time)
+        - :attr:`obs_edges` — grid cell edge arrays
+        - :attr:`obs_gridded_data` — zero arrays for data accumulation
+        - :attr:`obs_gridded_count` — zero arrays for count accumulation
         """
         from .util import grid_util
         ntime = self.control_dict['obs_grid']['ntime']
@@ -1093,11 +1100,14 @@ class analysis:
                 self.obs_gridded_count[obs + '_' + var] = np.zeros([ntime, nlon, nlat], dtype=np.int32)
 
     def update_obs_gridded_data(self):
+        """Accumulate swath observations onto the uniform grid.
+
+        For each observation dataset and time step, extracts lat/lon
+        coordinates and data values, bins observations into grid cells,
+        and accumulates sums and counts using Numba-accelerated
+        :func:`~melodies_monet.util.grid_util.update_data_grid`.
+        """
         from .util import grid_util
-        """
-        Update observation grid cell values and counts,
-        for all observation datasets and parameters.
-        """
         for obs in self.obs:
             for obs_time in self.obs[obs].obj:
                 print('updating obs time: ', obs, obs_time)
@@ -1120,11 +1130,13 @@ class analysis:
                         self.obs_gridded_data[key])
 
     def normalize_obs_gridded_data(self):
+        """Normalize accumulated grid data by dividing sums by counts.
+
+        Creates :attr:`obs_gridded_dataset` containing data and count
+        arrays for each observation/variable combination. Grid cells
+        with zero observations are set to NaN.
+        """
         from .util import grid_util
-        """
-        Normalize observation grid cell values where counts is not zero.
-        Create data arrays for the obs_gridded_dataset dictionary.
-        """
         self.obs_gridded_dataset = xr.Dataset()
 
         for obs in self.obs:

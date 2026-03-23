@@ -130,7 +130,6 @@ Table of Contents
    appendix/machine-specific-install
    appendix/yaml
    appendix/modis_yaml
-   appendix/modis_api
    appendix/troubleshooting
 
 

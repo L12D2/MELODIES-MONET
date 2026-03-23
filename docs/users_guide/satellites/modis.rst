@@ -314,6 +314,5 @@ See Also
 
 * :doc:`/users_guide/supported_datasets` - Full list of supported observations and models
 * :doc:`/appendix/modis_yaml` - MODIS YAML configuration reference
-* :doc:`/appendix/modis_api` - MODIS API reference
 * :doc:`/appendix/yaml` - Complete YAML configuration reference
 * :doc:`/examples/intro_examples` - Additional examples

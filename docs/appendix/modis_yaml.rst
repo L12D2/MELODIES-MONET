@@ -480,5 +480,4 @@ See Also
 --------
 
 * :doc:`/users_guide/satellites/modis` - MODIS user guide
-* :doc:`/appendix/modis_api` - MODIS API reference
 * :doc:`/appendix/yaml` - Complete YAML reference for all options
