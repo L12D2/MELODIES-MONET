@@ -27,6 +27,7 @@ class observation:
         self.resample = None
         self.time_var = None
         self.regrid_method = None
+        self.debug = False
 
     def __repr__(self):
         return (
@@ -220,12 +221,17 @@ class observation:
                 )
                 # self.obj = granules, an OrderedDict of Datasets, keyed by datetime_str,
                 #   with variables: Latitude, Longitude, Scan_Start_Time, parameters, ...
-            elif self.sat_type == "tropomi_l2_no2":
+            elif self.sat_type == 'tropomi_l2_no2' and (
+                    self.sat_method == None or self.sat_method == "replace_apriori"):
                 # from monetio import tropomi_l2_no2
                 print("Reading TROPOMI L2 NO2")
                 self.obj = mio.sat._tropomi_l2_no2_mm.read_trpdataset(
                     self.file, self.variable_dict, debug=self.debug
                 )
+            elif self.sat_type.startswith('tropomi_l2') and self.sat_method == "apply_ak":
+
+                print('Reading TROPOMI L2 with averaging kernel application')
+                self.obj = mio.sat.tropomi_l2.open_datasets(self.file, self.variable_dict)        
             elif "tempo_l2" in self.sat_type:
                 print("Reading TEMPO L2")
                 self.obj = mio.sat._tempo_l2_no2_mm.open_dataset(
