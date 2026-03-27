@@ -494,7 +494,6 @@ def _regrid_and_apply_ak(
         data in satellite space after applying the ak as values
     """
 
-    print("obsobj", obsobj)
     output_pair = {}
 
     obsobj_dates = np.unique(obsobj["time_granule"].dt.floor("D"))
