@@ -844,9 +844,9 @@ class analysis:
                         label = "{}_{}".format(p.obs, p.model)
                         self.paired[label] = p
 
-if obs.sat_type == 'tropomi_l2_no2' and (obs.sat_method == None or obs.sat_method == "replace_apriori"):
-                        from .util import sat_l2_swath_utility as no2util
-                        from .util import satellite_utilities as sutil
+                    if obs.sat_type == 'tropomi_l2_no2' and (obs.sat_method == None or obs.sat_method == "replace_apriori"):
+                        from melodies_monet.util import sat_l2_swath_utility as no2util
+                        from melodies_monet.util import satellite_utilities as sutil
 
                         # calculate model no2 trop. columns. M.Li
                         # to fix the "time" duplicate error
@@ -891,7 +891,7 @@ if obs.sat_type == 'tropomi_l2_no2' and (obs.sat_method == None or obs.sat_metho
                         self.paired[label] = p
     
                     if obs.sat_type.startswith('tropomi_l2') and obs.sat_method == "apply_ak":
-                        from .util import sat_l2_swath_utility_tropomi as sutil
+                        from melodies_monet.util import sat_l2_swath_utility_tropomi as sutil
                         if obs.sat_type == 'tropomi_l2_no2':
                             sat_sp = 'NO2'
                             sp = 'nitrogendioxide_tropospheric_column'
