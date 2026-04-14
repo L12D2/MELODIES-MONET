@@ -534,7 +534,7 @@ def convert_std_to_amb_ams(ds, convert_vars=None, temp_var=None, pres_var=None):
 def convert_std_to_amb_bc(ds, convert_vars=None, temp_var=None, pres_var=None):
     """
     Backwards compatable wrapper for AMS Dataset.
-    This uses legacy aircraft processing standard
+    This uses black carbon aircraft processing standard
     Presure = 101300 Pa
     Temperature = 273 K
     """
