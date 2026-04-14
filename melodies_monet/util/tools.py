@@ -483,7 +483,6 @@ def convert_std_to_amb(
 ):
     """
     Convert aerosol concentrations from standard to ambient conditions.
-    air quality number density to std air number density using the ideal gas law.
     
     Parameter
     ---
