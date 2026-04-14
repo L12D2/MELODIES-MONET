@@ -482,7 +482,7 @@ def convert_std_to_amb(
     standard_temperature=273.0
 ):
     """
-    Convert concentration from std to amb conditions.
+    Convert aerosol concentrations from standard to ambient conditions.
     This function applies a conversion factor based on the ratio of ambient
     air quality number density to std air number density using the ideal gas law.
     
