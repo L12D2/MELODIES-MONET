@@ -486,26 +486,21 @@ def convert_std_to_amb(
     
     Parameters
     ----------
-    :param ds: xarray.Dataset
+    ds: xarray.Dataset
         Dataset containing variables to convert.
-    :param convert_vars: list of str, optional
+    convert_vars: list of str, optional
         List of variable names in ds to apply conversion to.
-    :param temp_var: str
+    temp_var: str
         Name of temperature variable in ds (units must be Kelvin).
-    :param pres_var: str
+    pres_var: str
         Name of pressure variable in ds (units must be Pascal).
-    :param standard_pressure: float, optional
+    standard_pressure: float, optional
         Standard pressure in Pa used for defining standard conditions.
         Default is 101325 Pa (international standard atmosphere).
-    :param standard_temperature: float, optional
+    standard_temperature: float, optional
         Standard temperature in K used for defining standard conditions.
         Default is 273 K.
     
-    PLease note:
-    P = Pressure
-    T = temperature
-    N_A = Avogadro's number
-    R  = Universal gas constant
     """
     if convert_vars is None:
         convert_vars = []
