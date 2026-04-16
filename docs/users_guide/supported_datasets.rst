@@ -147,7 +147,7 @@ quality filtering, and model pairing.
 
 Available now:
    * `MODIS <https://modis.gsfc.nasa.gov/>`_ - Moderate Resolution Imaging Spectroradiometer aerosol products (MOD04_L2, MYD04_L2). See :doc:`satellites/modis` for detailed documentation.
-   * `MOPITT <https://www2.acom.ucar.edu/mopitt>`_ - Measurements of Pollution in the Troposphere (CO profiles)
+   * `MOPITT <https://www2.acom.ucar.edu/facility/mopitt>`_ - Measurements of Pollution in the Troposphere (CO profiles)
    * `OMPS <https://ozoneaq.gsfc.nasa.gov/omps/>`_ - Ozone Mapping and Profiler Suite
    * `TROPOMI <http://www.tropomi.eu/>`_ - TROPOspheric Monitoring Instrument (NO2)
    * `TEMPO <https://tempo.si.edu/>`_ - Tropospheric Emissions: Monitoring of Pollution (NO2, HCHO)
