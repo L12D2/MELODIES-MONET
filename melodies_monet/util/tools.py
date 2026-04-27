@@ -540,7 +540,7 @@ def calc_partialcolumn(modobj, var="NO2", unit="molecules/cm2"):
             "Supported units are 'molecules/cm2' and 'mol/m2'."
         )    
     
-    ppbv2molmol = 1e-9
+    ppbv2molefrac = 1e-9
     m2_to_cm2 = 1e4
     
     if unit == "molecules/cm2":
