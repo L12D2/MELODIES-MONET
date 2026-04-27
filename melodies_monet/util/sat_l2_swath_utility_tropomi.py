@@ -162,21 +162,21 @@ def _interp_vert(orig, target, data):
 
 
 def interp_vertical_mod2swath(obsobj, modobj, variables="NO2_col"):
-    """Interpolates model vertical layers to TEMPO vertical layers
+    """Interpolates model vertical layers to TROPOMI vertical layers
 
     Parameters
     ----------
     modobj : xr.Dataset
         Model data (as provided by MONETIO)
     obsobj : xr.Dataset
-        TEMPO data (as provided by the reader). Must include pressure.
+        TROPOMI data (as provided by the reader). Must include pressure.
     variables : str | list[str]
         Variables to interpolate.
 
     Returns
     -------
     xr.Dataset
-        Model data (interpolated to TEMPO vertical layers
+        Model data (interpolated to TROPOMI vertical layers)
     """
     assert np.all(modobj["longitude"].fillna(0).values == obsobj["longitude"].fillna(0).values)
     assert np.all(modobj["latitude"].fillna(0).values == obsobj["latitude"].fillna(0).values)
