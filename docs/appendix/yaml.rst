@@ -111,10 +111,12 @@ Shell variables prefixed with the ``$`` symbol, such as ``$HOME``, will be expan
 
 * cmaq
 * wrfchem
+* chimere
 * ufs (rrfs is deprecated. This works for both UFS-AQM and UFS-Chem)
 * gsdchem
-* cesm_fv 
-* cesm_se 
+* cesm_fv
+* cesm_se
+* camx
 * raqms
 
 If you specify another name, MELODIES MONET will try to read in the data using
