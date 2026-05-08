@@ -30,12 +30,10 @@ Supported Models
      - MOPITT, MODIS, TEMPO
    * - `CESM/CAM-chem SE <https://www2.acom.ucar.edu/gcm/cam-chem>`_
      - Yes
-     - | Needs testing & to 
-       | add unstructured 
-       | grid capabilities
-     - | Needs testing & to 
-       | add unstructured 
-       | grid capabilities
+     - | Not functional. Regrid to
+       | structured grid first.
+     - | Not functional. Regrid to
+       | structured grid first.
    * - `CMAQ <https://www.epa.gov/cmaq/>`_
      - Yes
      - Needs testing
