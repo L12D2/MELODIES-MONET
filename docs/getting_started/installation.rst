@@ -36,6 +36,13 @@ Incompatibilities
 General instructions
 --------------------
 
+.. note::
+   If you are installing MELODIES MONET on NCAR Casper or NOAA Hera
+   please refer to these machine specific instructions.
+
+   - :ref:`NCAR Casper <appendix/machine-specific-install:NCAR HPC Derecho/Casper>`
+   - :ref:`NOAA Hera <appendix/machine-specific-install:NOAA HPC Hera>`
+
 If you are a user and are not planning to modify MELODIES MONET itself,
 installing it is relatively simple. There are two methods available.
 
