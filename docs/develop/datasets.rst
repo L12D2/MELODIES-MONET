@@ -83,7 +83,7 @@ Examples for reading satellite datasets can be
 found in the ``monetio/sat`` folder in the MONETIO repository
 `on GitHub <https://github.com/noaa-oar-arl/monetio>`__.
 Not all MONETIO satellite readers have been incorporated into MELODIES MONET. Please see
-:ref:`Supported Datasets <users_guide/supported_datasets:Supported Datasets>` to learn
+:doc:`../users_guide/supported_datasets` to learn
 which satellites have been incorporated and are available for each model.
 
 Models
@@ -92,8 +92,7 @@ Examples for reading model datasets can be
 found in the ``monetio/models`` folder in the MONETIO repository
 `on GitHub <https://github.com/noaa-oar-arl/monetio>`__.
 Not all MONETIO model readers have been incorporated into MELODIES MONET. Please see
-:ref:`Supported Datasets <users_guide/supported_datasets:Supported Datasets>` to learn
-which models have been incorporated.
+:doc:`../users_guide/supported_datasets` to learn which models have been incorporated.
 
 Support for additional models is also under developed.
 

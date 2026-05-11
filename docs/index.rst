@@ -79,12 +79,14 @@ Table of Contents
    :maxdepth: 4
    :caption: Getting Started
 
+   getting_started/how_to_begin
+   getting_started/new_to_python
    getting_started/installation
-   getting_started/software_architecture
    getting_started/downloading_obs
+   getting_started/software_architecture
    getting_started/how_to_run
    getting_started/tutorials
-   getting_started/new_to_python
+
 
 .. toctree::
    :maxdepth: 4

@@ -51,7 +51,7 @@ described in the :doc:`tutorial-data` section. Instructions for running
 these examples are shown below:
 
 1) Follow the :ref:`Installation Instructions <getting_started/installation:Installation/Requirements>` 
-   to install MELODIES MONET
+   to install MELODIES MONET and activate your Conda environment.
 
 2) Make a directory on your machine for these tutorial examples and go there::
 
@@ -81,7 +81,7 @@ these examples are shown below:
 
     $ {your user_directory}/MM_tutorial/plots_airnow_wrfchem
 
-7) Make sure you have activated your conda environment and run the Jupyter notebook.
+7) Make sure you have activated your Conda environment and run the Jupyter notebook.
 
 .. list-table:: Current Examples And Their Corresponding YAML and Jupyter Notebook Files
    :widths: 20 40 40
