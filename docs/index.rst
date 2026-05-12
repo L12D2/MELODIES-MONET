@@ -99,7 +99,7 @@ Table of Contents
 
 .. toctree::
    :maxdepth: 4
-   :caption: Examples
+   :caption: Tutorial Examples
 
    examples/intro_examples
    examples/tutorial-data
@@ -110,7 +110,6 @@ Table of Contents
    examples/airnow_ufschem
    examples/ish_ufschem
    examples/ish_lite_ufschem
-   examples/idealized
    examples/save_paired_data
    examples/read_paired_data
    examples/aircraft_pairing
@@ -118,6 +117,7 @@ Table of Contents
    examples/UWyoming_UFS-CHEM_Pairing
    examples/UWyoming_UFS-CHEM_pairing_loop_read
    examples/ufs-aqm-gml-ozonesonde
+   examples/idealized
 
 .. toctree::
    :maxdepth: 4

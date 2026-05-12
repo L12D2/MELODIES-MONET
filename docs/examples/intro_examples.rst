@@ -1,5 +1,5 @@
-Description of Examples
-=======================
+Description of Tutorial Examples
+================================
 
 We have developed many examples to show case the flexibility 
 and ease of MELODIES MONET that are described in this section. 
@@ -26,13 +26,12 @@ Two examples compare ISH and ISH-lite surface observations to model data:
 * :doc:`ish_ufschem`
 * :doc:`ish_lite_ufschem`
 
-Other examples:
+These examples describe how to save paired data and read it back in:
 
-* :doc:`idealized`
 * :doc:`save_paired_data`
 * :doc:`read_paired_data`
 
-Aircraft and sonde evaluation examples:
+Aircraft and sonde evaluation examples include the following:
 
 * :doc:`aircraft_pairing`
 * :doc:`AEROMMA_UFS-AQM_Plots`
@@ -40,11 +39,15 @@ Aircraft and sonde evaluation examples:
 * :doc:`UWyoming_UFS-CHEM_pairing_loop_read`
 * :doc:`ufs-aqm-gml-ozonesonde`
 
+Idealized examples that are run as tests include those below:
+
+* :doc:`idealized`
+
 How to Run These Examples On Your Own
 -------------------------------------
 
 Users can also download the YAML input files and Jupyter notebooks and run 
-them on their own system. This is an excellent method to test your setup and
+them on their own system. This is an excellent method to test your set up and
 get familiar with running MELODIES MONET scripts. The YAML input files for 
 these examples will automatically download observation and model data as 
 described in the :doc:`tutorial-data` section. Instructions for running 
@@ -58,8 +61,9 @@ these examples are shown below:
     $ mkdir MM_tutorial
     $ cd MM_tutorial
 
-3) Create a folder called code. And clone the MELODIES MONET GitHub
-   repository to this folder. This is just a reference folder for you of the code::
+3) Create a folder called code and clone the MELODIES MONET GitHub
+   repository to this folder. This is just a reference folder of the code and 
+   is not the code you are using to run MELODIES MONET::
    
     $ mkdir code
     $ cd code
@@ -113,9 +117,6 @@ these examples are shown below:
    * - ISH-LITE and UFS-CHEM
      - control_ish_lite_ufschem-example.yaml
      - ish_lite_ufschem.ipynb
-   * - Idealized Synthetic Data
-     - control_idealized.yaml
-     - idealized.ipynb
    * - Saving Paired Data
      - control_wrfchem_saveandread.yaml
      - save_paired_data.ipynb
@@ -140,7 +141,10 @@ these examples are shown below:
    * - | GML ozonesonde and 
        | UFS-AQM
      - control_ufsaqm_ozonesonde.yaml
-     - N/A 
+     - N/A
+   * - Idealized Synthetic Data
+     - control_idealized.yaml
+     - idealized.ipynb
 
 Note: For the :doc:`ufs-aqm-gml-ozonesonde` example, there is no corresponding jupyter notebook. 
 This example shows users how to run MELODIES MONET using the :doc:`the CLI </cli>`. (``melodies-monet run``).
