@@ -96,7 +96,7 @@ branch of one, you should use the develop branch of all of them for consistency.
        $ conda activate melodies-monet-dev-test
        $ conda install -y -c conda-forge pyyaml pandas=2 monet monetio \
          "netcdf4<1.7" "setuptools<70" "dask>=2024.2.1" wrf-python \
-         metpy windrose statannotations \
+         "cartopy=0.24" metpy windrose statannotations \
          typer rich pooch jupyterlab
 
 (b) Now, install the **develop** branch of **MELODIES MONET** to the environment::
@@ -134,7 +134,7 @@ changes on your fork, and submit a pull request with your changes to the develop
        $ conda activate melodies-monet-dev-update
        $ conda install -y -c conda-forge pyyaml pandas=2 monet monetio \
          "netcdf4<1.7" "setuptools<70" "dask>=2024.2.1" wrf-python \
-         metpy windrose statannotations \
+         "cartopy=0.24" metpy windrose statannotations \
          typer rich pooch jupyterlab
 
 (b) Fork the GitHub repositories to your own GitHub account
