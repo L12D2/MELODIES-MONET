@@ -1071,7 +1071,6 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
     if 'crs' not in map_kwargs:
         map_kwargs['crs'] = proj
 
-    map_kwargs['transform'] = proj
     #With pcolormesh, a Warning shows because nearest interpolation may not work for non-monotonically increasing regions.
     #Because I do not want to pull in the edges of the lat lon for every model I switch to contourf.
     #First determine colorbar, so can use the same for both contourf and scatter
@@ -1111,11 +1110,11 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
                 wind_barb_kwargs = {"length": 6, "linewidth": 0.85}
 
             ax.barbs(
-                u_mod["longitude"][::wind_barb_skip], # long
-                u_mod["latitude"][::wind_barb_skip], # lat
-                u_mod[::wind_barb_skip]*1.94384, 
-                v_mod[::wind_barb_skip]*1.94384, # u, v
-                transform=map_kwargs['transform'],
+                u_mod["longitude"][::wind_barb_skip,::wind_barb_skip].values, # long
+                u_mod["latitude"][::wind_barb_skip,::wind_barb_skip].values, # lat
+                u_mod[::wind_barb_skip,::wind_barb_skip].values*1.94384, 
+                v_mod[::wind_barb_skip,::wind_barb_skip].values*1.94384, # u, v
+                transform=ccrs.PlateCarree(),
                 **wind_barb_kwargs,
             )  # order per matplot lib follows (x, y, u, v)
         else:

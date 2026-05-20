@@ -1,3 +1,5 @@
+# This YAML file has been last tested with MELODIES MONET version 1.1.
+
 # General Description:
 # - Any key that is specific for a plot type will begin with `ts` for timeseries, `ty` for taylor.
 # - Some keys/groups are optional.
@@ -24,7 +26,7 @@ analysis:
 
 model:
   wrfchem: # model label
-    files: /wrk/d2/rschwantes/wrf/output_w_3hr_raqms_fire_correct/*
+    files: /wrk/d2/rschwantes/MM_example_data/output_w_3hr_raqms_fire_correct/*
     mod_type: "wrfchem"
     mod_kwargs:
       mech: "racm_esrl_vcp"
@@ -55,7 +57,7 @@ model:
       linestyle: "-"
 obs:
   ish: # obs label
-    filename: /wrk/d2/rschwantes/obs/ISH/ISH_20230801_20230901.nc
+    filename: /wrk/d2/rschwantes/MM_example_data/obs/ISH/ISH_20230801_20230901.nc
     obs_type: pt_sfc
     variables: # optional
       t:
@@ -209,6 +211,8 @@ plots:
     data_proc:
       rem_obs_nan: True
       set_axis: True
+      wind_barb: True
+      wind_barb_skip: 5
 
   plot_grp3:
     type: "spatial_overlay"
@@ -226,6 +230,8 @@ plots:
     data_proc:
       rem_obs_nan: True
       set_axis: True
+      wind_barb: True
+      wind_barb_skip: 15
 
   plot_grp3a:
     type: "spatial_overlay"
@@ -244,6 +250,12 @@ plots:
       rem_obs_nan: True
       set_axis: True
       filter_string: 'ws != 0 and wdir != 0' #Remove observations labeled as calm from the analysis
+      wind_barb: True
+      wind_barb_skip: 15
+      wind_barb_kwargs:
+        length: 6
+        linewidth: 0.85
+        color: "magenta"
       
   plot_grp4:
     type: "boxplot"
