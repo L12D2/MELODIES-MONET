@@ -234,7 +234,7 @@ plots:
   plot_grp3:
     type: "spatial_overlay"
     fig_kwargs:
-      states: True  # such as whether to show the state boundaries
+      states: True  # whether to show the state boundaries
       figsize: [10, 5]
     text_kwargs:
       fontsize: 16. 
