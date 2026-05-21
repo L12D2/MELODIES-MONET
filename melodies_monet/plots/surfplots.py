@@ -266,7 +266,7 @@ def get_utcoffset(lat,lon):
 def make_spatial_bias(df, df_reg=None, column_o=None, label_o=None, column_m=None, 
                       label_m=None, ylabel = None, ptile = None, vdiff=None,
                       outname = 'plot', u_comp = None, v_comp = None, wind_barb=False,
-                      wind_barb_skip=1, wind_barb_kwargs=None,
+                      wind_barb_step=1, wind_barb_kwargs=None,
                       domain_type=None, domain_name=None, fig_dict=None, 
                       text_dict=None,debug=False): 
         
@@ -300,8 +300,8 @@ def make_spatial_bias(df, df_reg=None, column_o=None, label_o=None, column_m=Non
         Name of v_component in the model to use for wind barbs
     wind_barb : boolean
         Whether to plot wind barbs (True) or not (False)
-    wind_barb_skip : integer
-        Frequency to skip wind barbs
+    wind_barb_step : integer
+        Step or stride frequency to plot every nth wind_barb to declutter plot
     wind_barb_kwargs : dictionary
         Dictionary containing information about wind barbs
     domain_type : str
@@ -409,10 +409,10 @@ def make_spatial_bias(df, df_reg=None, column_o=None, label_o=None, column_m=Non
                 wind_barb_kwargs = {"length": 6, "linewidth": 0.85}
 
             ax.barbs(
-                df_mean_wind["longitude"][::wind_barb_skip], # long
-                df_mean_wind["latitude"][::wind_barb_skip], # lat
-                u_mod[::wind_barb_skip]*1.94384, 
-                v_mod[::wind_barb_skip]*1.94384, # u, v
+                df_mean_wind["longitude"][::wind_barb_step], # long
+                df_mean_wind["latitude"][::wind_barb_step], # lat
+                u_mod[::wind_barb_step]*1.94384, 
+                v_mod[::wind_barb_step]*1.94384, # u, v
                 transform=ccrs.PlateCarree(),
                 **wind_barb_kwargs,
             )  # order per matplot lib follows (x, y, u, v)
@@ -953,7 +953,7 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
                       label_m=None, ylabel = None, vmin=None,
                       vmax = None, nlevels = None, proj = None, outname = 'plot',
                       u_comp = None, v_comp = None, wind_barb = False,
-                      wind_barb_skip=1, wind_barb_kwargs=None,
+                      wind_barb_step=1, wind_barb_kwargs=None,
                       domain_type=None, domain_name=None, fig_dict=None, 
                       text_dict=None,debug=False):
         
@@ -991,8 +991,8 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
         Name of v_component in the model to use for wind barbs
     wind_barb : boolean
         Whether to plot wind barbs (True) or not (False)
-    wind_barb_skip : integer
-        Frequency to skip wind barbs
+    wind_barb_step : integer
+        Step or stride frequency to plot every nth wind_barb to declutter plot
     wind_barb_kwargs : dictionary
         Dictionary containing information about wind barbs
     domain_type : str
@@ -1110,10 +1110,10 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
                 wind_barb_kwargs = {"length": 6, "linewidth": 0.85}
 
             ax.barbs(
-                u_mod["longitude"][::wind_barb_skip,::wind_barb_skip].values, # long
-                u_mod["latitude"][::wind_barb_skip,::wind_barb_skip].values, # lat
-                u_mod[::wind_barb_skip,::wind_barb_skip].values*1.94384, 
-                v_mod[::wind_barb_skip,::wind_barb_skip].values*1.94384, # u, v
+                u_mod["longitude"][::wind_barb_step,::wind_barb_step].values, # long
+                u_mod["latitude"][::wind_barb_step,::wind_barb_step].values, # lat
+                u_mod[::wind_barb_step,::wind_barb_step].values*1.94384, 
+                v_mod[::wind_barb_step,::wind_barb_step].values*1.94384, # u, v
                 transform=ccrs.PlateCarree(),
                 **wind_barb_kwargs,
             )  # order per matplot lib follows (x, y, u, v)
@@ -2254,7 +2254,7 @@ def make_spatial_bias_exceedance(df, df_wind=None, column_o=None, label_o=None, 
                                  label_m=None, ylabel = None,  vdiff=None,
                                  outname = 'plot',
                                  u_comp = None, v_comp = None, wind_barb=False,
-                                 wind_barb_skip=1, wind_barb_kwargs=None,
+                                 wind_barb_step=1, wind_barb_kwargs=None,
                                  domain_type=None, domain_name=None, fig_dict=None,
                                  text_dict=None,debug=False):
 
@@ -2286,8 +2286,8 @@ def make_spatial_bias_exceedance(df, df_wind=None, column_o=None, label_o=None, 
         Name of v_component in the model to use for wind barbs
     wind_barb : boolean
         Whether to plot wind barbs (True) or not (False)
-    wind_barb_skip : integer
-        Frequency to skip wind barbs
+    wind_barb_step : integer
+        Step or stride frequency to plot every nth wind_barb to declutter plot
     wind_barb_kwargs : dictionary
         Dictionary containing information about wind barbs
     domain_type : str
@@ -2402,10 +2402,10 @@ def make_spatial_bias_exceedance(df, df_wind=None, column_o=None, label_o=None, 
                     wind_barb_kwargs = {"length": 6, "linewidth": 0.85}
 
                 ax.barbs(
-                    df_mean_wind["longitude"][::wind_barb_skip], # long
-                    df_mean_wind["latitude"][::wind_barb_skip], # lat
-                    u_mod[::wind_barb_skip]*1.94384, 
-                    v_mod[::wind_barb_skip]*1.94384, # u, v
+                    df_mean_wind["longitude"][::wind_barb_step], # long
+                    df_mean_wind["latitude"][::wind_barb_step], # lat
+                    u_mod[::wind_barb_step]*1.94384, 
+                    v_mod[::wind_barb_step]*1.94384, # u, v
                     transform=ccrs.PlateCarree(),
                     **wind_barb_kwargs,
                 )  # order per matplot lib follows (x, y, u, v)

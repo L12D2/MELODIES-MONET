@@ -212,7 +212,7 @@ plots:
       rem_obs_nan: True
       set_axis: True
       wind_barb: True
-      wind_barb_skip: 5
+      wind_barb_step: 5
 
   plot_grp3:
     type: "spatial_overlay"
@@ -231,7 +231,7 @@ plots:
       rem_obs_nan: True
       set_axis: True
       wind_barb: True
-      wind_barb_skip: 15
+      wind_barb_step: 15
 
   plot_grp3a:
     type: "spatial_overlay"
@@ -251,7 +251,7 @@ plots:
       set_axis: True
       filter_string: 'ws != 0 and wdir != 0' #Remove observations labeled as calm from the analysis
       wind_barb: True
-      wind_barb_skip: 15
+      wind_barb_step: 15
       wind_barb_kwargs:
         length: 6
         linewidth: 0.85
