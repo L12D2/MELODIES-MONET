@@ -640,7 +640,8 @@ observation label is first and the model label is second
       * ``****``: p <= 1.00e-04
 
    * **wind_barb:** If = True, add wind barbs to the plot. Defaults to False.
-   * **wind_barb_skip:** Integer for skipping wind barbs to declutter plot. Defaults to 1.
+   * **wind_barb_step:** Step or stride frequency to plot every nth wind barb to declutter plot. 
+     Defaults to 1.
    * **wind_barb_kwargs:** Optional dictionary containing information about wind barbs to import into
      matplotlib.axes.Axes.barbs function for users to change color, length, linewidth, etc.
 
