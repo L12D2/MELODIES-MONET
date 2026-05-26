@@ -36,7 +36,7 @@ model:
 
     mod_type: 'cesm_se'
     grid_file: "/glade/campaign/acom/acom-da/conus_outputs/grid/ne0CONUS_ne30x8_EXODUS.nc" # for unstructured grids, this can be the raw grid itself and NOT the script file
-    radius_of_influence: 25500 #meters: horizontal resolution * 1.5
+    radius_of_influence: 27794 #meters: horizontal resolution * 1.5
     mapping: #model species name : obs species name
       airnow:
         #CO: 'CO' #The mapping tables need to contain the same species for all models.
