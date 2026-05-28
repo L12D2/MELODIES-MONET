@@ -2,7 +2,7 @@ from melodies_monet.driver.model import model
 from melodies_monet.driver.observation import observation
 from melodies_monet.driver.pair import pair
 
-from melodies_monet.driver.analysis import analysis
+from melodies_monet.driver._analysis import analysis
 
 
 __all__ = (
