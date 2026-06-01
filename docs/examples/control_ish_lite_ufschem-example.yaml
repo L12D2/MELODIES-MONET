@@ -239,6 +239,7 @@ plots:
       rem_obs_nan: True
       set_axis: True
       wind_barb: True
+      wind_barb_step: 2
       filter_string: '24 < latitude < 50 and -130 < longitude < -60'
 
   plot_grp3a:
@@ -258,6 +259,11 @@ plots:
       rem_obs_nan: True
       set_axis: True
       wind_barb: True
+      wind_barb_step: 2
+      wind_barb_kwargs:
+        length: 6
+        linewidth: 0.85
+        color: "magenta"
       filter_string: '24 < latitude < 50 and -130 < longitude < -60 and ws != 0 and wdir != 0' #Remove observations labeled as calm from the analysis
       
   plot_grp4:

@@ -234,7 +234,7 @@ plots:
   plot_grp3:
     type: "spatial_overlay"
     fig_kwargs:
-      states: True
+      states: True  # whether to show the state boundaries
       figsize: [10, 5]
     text_kwargs:
       fontsize: 16. 
@@ -245,6 +245,7 @@ plots:
       rem_obs_nan: True
       set_axis: True
       wind_barb: True
+      wind_barb_step: 2
       filter_string: '24 < latitude < 50 and -130 < longitude < -60'
 
   plot_grp3a:
@@ -261,6 +262,7 @@ plots:
       rem_obs_nan: True
       set_axis: True
       wind_barb: True
+      wind_barb_step: 2
       filter_string: '24 < latitude < 50 and -130 < longitude < -60 and ws != 0 and wdir != 0' #Remove observations labeled as calm from the analysis
 
   plot_grp3b:
@@ -277,6 +279,11 @@ plots:
       rem_obs_nan: True
       set_axis: True
       wind_barb: True
+      wind_barb_step: 2
+      wind_barb_kwargs:
+        length: 6
+        linewidth: 0.85
+        color: "magenta"
       filter_string: '37 < latitude < 49 and -104 < longitude < -80'
 
   plot_grp4:

@@ -266,6 +266,7 @@ def get_utcoffset(lat,lon):
 def make_spatial_bias(df, df_reg=None, column_o=None, label_o=None, column_m=None, 
                       label_m=None, ylabel = None, ptile = None, vdiff=None,
                       outname = 'plot', u_comp = None, v_comp = None, wind_barb=False,
+                      wind_barb_step=1, wind_barb_kwargs=None,
                       domain_type=None, domain_name=None, fig_dict=None, 
                       text_dict=None,debug=False): 
         
@@ -299,6 +300,10 @@ def make_spatial_bias(df, df_reg=None, column_o=None, label_o=None, column_m=Non
         Name of v_component in the model to use for wind barbs
     wind_barb : boolean
         Whether to plot wind barbs (True) or not (False)
+    wind_barb_step : integer
+        Step or stride frequency to plot every nth wind_barb to declutter plot
+    wind_barb_kwargs : dictionary
+        Dictionary containing information about wind barbs
     domain_type : str
         Domain type specified in input yaml file
     domain_name : str
@@ -388,7 +393,7 @@ def make_spatial_bias(df, df_reg=None, column_o=None, label_o=None, column_m=Non
 
     if 'extent' not in map_kwargs:
         map_kwargs['extent'] = [lonmin,lonmax,latmin,latmax]  
-    ax.axes.set_extent(map_kwargs['extent'],crs=map_kwargs['crs'])
+    ax.axes.set_extent(map_kwargs['extent'],crs=ccrs.PlateCarree())
 
     #print(df.columns)
     
@@ -400,15 +405,16 @@ def make_spatial_bias(df, df_reg=None, column_o=None, label_o=None, column_m=Non
             u_mod = df_mean_wind[u_comp]
             v_mod = df_mean_wind[v_comp]
 
-            # set skip for less clutter
-            skip=1
+            if wind_barb_kwargs is None:
+                wind_barb_kwargs = {"length": 6, "linewidth": 0.85}
+
             ax.barbs(
-                df_mean_wind["longitude"][::skip], # long
-                df_mean_wind["latitude"][::skip], # lat
-                u_mod[::skip]*1.94384, 
-                v_mod[::skip]*1.94384, # u, v
-                transform=map_kwargs['crs'],
-                length=6, linewidth=0.85
+                df_mean_wind["longitude"][::wind_barb_step], # long
+                df_mean_wind["latitude"][::wind_barb_step], # lat
+                u_mod[::wind_barb_step]*1.94384, 
+                v_mod[::wind_barb_step]*1.94384, # u, v
+                transform=ccrs.PlateCarree(),
+                **wind_barb_kwargs,
             )  # order per matplot lib follows (x, y, u, v)
         else:
             print("U-comp and V-comp need to be specified in the yaml file. Plotting wind barbs failed!")
@@ -947,6 +953,7 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
                       label_m=None, ylabel = None, vmin=None,
                       vmax = None, nlevels = None, proj = None, outname = 'plot',
                       u_comp = None, v_comp = None, wind_barb = False,
+                      wind_barb_step=1, wind_barb_kwargs=None,
                       domain_type=None, domain_name=None, fig_dict=None, 
                       text_dict=None,debug=False):
         
@@ -984,6 +991,10 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
         Name of v_component in the model to use for wind barbs
     wind_barb : boolean
         Whether to plot wind barbs (True) or not (False)
+    wind_barb_step : integer
+        Step or stride frequency to plot every nth wind_barb to declutter plot
+    wind_barb_kwargs : dictionary
+        Dictionary containing information about wind barbs
     domain_type : str
         Domain type specified in input yaml file
     domain_name : str
@@ -1059,7 +1070,7 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
         map_kwargs['extent'] = [lonmin,lonmax,latmin,latmax] 
     if 'crs' not in map_kwargs:
         map_kwargs['crs'] = proj
-    
+
     #With pcolormesh, a Warning shows because nearest interpolation may not work for non-monotonically increasing regions.
     #Because I do not want to pull in the edges of the lat lon for every model I switch to contourf.
     #First determine colorbar, so can use the same for both contourf and scatter
@@ -1095,15 +1106,16 @@ def make_spatial_overlay(df, vmodel, column_o=None, label_o=None, column_m=None,
             u_mod = vmodel[u_comp].mean(dim='time').squeeze()
             v_mod = vmodel[v_comp].mean(dim='time').squeeze()
 
-            # set skip for less clutter
-            skip=2
+            if wind_barb_kwargs is None:
+                wind_barb_kwargs = {"length": 6, "linewidth": 0.85}
+
             ax.barbs(
-                u_mod["longitude"][::skip], # long
-                u_mod["latitude"][::skip], # lat
-                u_mod[::skip]*1.94384, 
-                v_mod[::skip]*1.94384, # u, v
-                transform=map_kwargs['crs'],
-                length=6, linewidth=0.85
+                u_mod["longitude"][::wind_barb_step,::wind_barb_step].values, # long
+                u_mod["latitude"][::wind_barb_step,::wind_barb_step].values, # lat
+                u_mod[::wind_barb_step,::wind_barb_step].values*1.94384, 
+                v_mod[::wind_barb_step,::wind_barb_step].values*1.94384, # u, v
+                transform=ccrs.PlateCarree(),
+                **wind_barb_kwargs,
             )  # order per matplot lib follows (x, y, u, v)
         else:
             print("U-comp and V-comp need to be specified in the yaml file. Plotting wind barbs failed!")
@@ -1378,6 +1390,12 @@ def make_boxplot(comb_bx, label_bx, ylabel = None, vmin = None, vmax = None, out
     ax.tick_params(labelsize=text_kwargs['fontsize']*0.8)
 
     if set_stat_sig:
+        if Annotator is None:
+            raise ImportError(
+                "statannotations is required for set_stat_sig. "
+                "Install with: conda install -c conda-forge statannotations "
+                "or with: pip install statannotations"
+            )
         # statistical significance of the means 
         p_values = []
         
@@ -1635,7 +1653,12 @@ def make_rose_plot(rose_df,
     plot 
         rose plot  
     """
-    
+    if windrose is None:
+        raise ImportError(
+            "windrose is required for rose_plot. "
+            "Install with: conda install -c conda-forge windrose "
+            "or with: pip install windrose"
+        )
     if debug is False:
         plt.ioff()
     def_text = dict(fontsize=14)
@@ -2231,6 +2254,7 @@ def make_spatial_bias_exceedance(df, df_wind=None, column_o=None, label_o=None, 
                                  label_m=None, ylabel = None,  vdiff=None,
                                  outname = 'plot',
                                  u_comp = None, v_comp = None, wind_barb=False,
+                                 wind_barb_step=1, wind_barb_kwargs=None,
                                  domain_type=None, domain_name=None, fig_dict=None,
                                  text_dict=None,debug=False):
 
@@ -2262,6 +2286,10 @@ def make_spatial_bias_exceedance(df, df_wind=None, column_o=None, label_o=None, 
         Name of v_component in the model to use for wind barbs
     wind_barb : boolean
         Whether to plot wind barbs (True) or not (False)
+    wind_barb_step : integer
+        Step or stride frequency to plot every nth wind_barb to declutter plot
+    wind_barb_kwargs : dictionary
+        Dictionary containing information about wind barbs
     domain_type : str
         Domain type specified in input yaml file
     domain_name : str
@@ -2358,7 +2386,7 @@ def make_spatial_bias_exceedance(df, df_wind=None, column_o=None, label_o=None, 
 
         if 'extent' not in map_kwargs:
             map_kwargs['extent'] = [lonmin,lonmax,latmin,latmax]
-        ax.axes.set_extent(map_kwargs['extent'],crs=map_kwargs['crs'])
+        ax.axes.set_extent(map_kwargs['extent'],crs=ccrs.PlateCarree())
 
         if wind_barb:
             if u_comp is not None and v_comp is not None and df_wind is not None:
@@ -2369,16 +2397,17 @@ def make_spatial_bias_exceedance(df, df_wind=None, column_o=None, label_o=None, 
             
                 u_mod = df_mean_wind[u_comp]
                 v_mod = df_mean_wind[v_comp]
-    
-                # set skip for less clutter
-                skip=1
+
+                if wind_barb_kwargs is None:
+                    wind_barb_kwargs = {"length": 6, "linewidth": 0.85}
+
                 ax.barbs(
-                    df_mean_wind["longitude"][::skip], # long
-                    df_mean_wind["latitude"][::skip], # lat
-                    u_mod[::skip]*1.94384, 
-                    v_mod[::skip]*1.94384, # u, v
-                    transform=map_kwargs['crs'],
-                    length=6, linewidth=0.85
+                    df_mean_wind["longitude"][::wind_barb_step], # long
+                    df_mean_wind["latitude"][::wind_barb_step], # lat
+                    u_mod[::wind_barb_step]*1.94384, 
+                    v_mod[::wind_barb_step]*1.94384, # u, v
+                    transform=ccrs.PlateCarree(),
+                    **wind_barb_kwargs,
                 )  # order per matplot lib follows (x, y, u, v)
             else:
                 print("U-comp and V-comp need to be specified in the yaml file. Plotting wind barbs failed!")

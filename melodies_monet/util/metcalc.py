@@ -48,7 +48,7 @@ def dewpoint(obj, varmap = None, output_key = "dewpoint"):
     if metpy is None:
         raise ImportError(
             "metpy is required for extra_calc. "
-            "Install with: conda install -c conda-forge metpy"
+            "Install with: conda install -c conda-forge metpy "
             "or with: pip install metpy"
         )
     
@@ -96,7 +96,7 @@ def relh(obj, varmap=None, output_key="rel_hum"):
     if metpy is None:
         raise ImportError(
             "metpy is required for extra_calc. "
-            "Install with: conda install -c conda-forge metpy"
+            "Install with: conda install -c conda-forge metpy "
             "or with: pip install metpy"
         )
 
@@ -155,7 +155,7 @@ def wspd(obj, varmap = None, output_key = "windspeed"):
     if metpy is None:
         raise ImportError(
             "metpy is required for extra_calc. "
-            "Install with: conda install -c conda-forge metpy"
+            "Install with: conda install -c conda-forge metpy "
             "or with: pip install metpy"
         )
 
@@ -202,7 +202,7 @@ def wdir(obj, varmap = None, output_key = "winddir"):
     if metpy is None:
         raise ImportError(
             "metpy is required for extra_calc. "
-            "Install with: conda install -c conda-forge metpy"
+            "Install with: conda install -c conda-forge metpy "
             "or with: pip install metpy"
         )
 
@@ -252,7 +252,7 @@ def ptemp(obj, varmap=None, output_key="ptemp"):
     if metpy is None:
         raise ImportError(
             "metpy is required for extra_calc. "
-            "Install with: conda install -c conda-forge metpy"
+            "Install with: conda install -c conda-forge metpy "
             "or with: pip install metpy"
         )
 
