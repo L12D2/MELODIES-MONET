@@ -72,6 +72,7 @@ Table of Contents
    users_guide/supported_plots
    users_guide/supported_stats
    users_guide/time_chunking
+   users_guide/satellites/index
    users_guide/gridded_datasets
    users_guide/region_selection
 
@@ -133,6 +134,7 @@ Table of Contents
    cli
    appendix/machine-specific-install
    appendix/yaml
+   appendix/modis_yaml
    appendix/troubleshooting
 
 

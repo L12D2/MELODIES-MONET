@@ -141,6 +141,21 @@ under milestone "Surface and Aircraft Evaluation Version 2" to learn more about 
 Satellite
 ^^^^^^^^^
 
+MELODIES MONET supports evaluation against satellite observations for column-integrated
+and profile retrievals. Satellite data processing includes swath-to-grid regridding,
+quality filtering, and model pairing.
+
+Available now:
+   * `MODIS <https://modis.gsfc.nasa.gov/>`_ - Moderate Resolution Imaging Spectroradiometer aerosol products (MOD04_L2, MYD04_L2). See :doc:`satellites/modis` for detailed documentation.
+   * `MOPITT <https://www2.acom.ucar.edu/facility/mopitt>`_ - Measurements of Pollution in the Troposphere (CO profiles)
+   * `OMPS <https://ozoneaq.gsfc.nasa.gov/omps/>`_ - Ozone Mapping and Profiler Suite
+   * `TROPOMI <http://www.tropomi.eu/>`_ - TROPOspheric Monitoring Instrument (NO2)
+   * `TEMPO <https://tempo.si.edu/>`_ - Tropospheric Emissions: Monitoring of Pollution (NO2, HCHO)
+
+To use satellite datasets in MELODIES MONET, specify ``obs_type`` as one of:
+``sat_swath_clm``, ``sat_swath_sfc``, ``sat_swath_prof``, ``sat_grid_clm``, or ``sat_grid_sfc``
+in your YAML file.
+
 Please refer to the
-`MELODIES MONET project board <https://github.com/orgs/NCAR/projects/150/>`__ 
+`MELODIES MONET project board <https://github.com/orgs/NCAR/projects/150/>`__
 under milestone "Remote Sensing Evaluation Version 2" to learn more about our current and future development plans.
