@@ -496,6 +496,11 @@ def make_timeseries(df, df_reg=None, column=None, label=None, ax=None, avg_windo
     # set ylabel to column if not specified.
     if ylabel is None:
         ylabel = column
+    if plot_dict is None:
+        # Ensure plot_dict is a dictionary
+        # Setting a dict as the default would use the same dict each time
+        # Modifications would accumulate
+        plot_dict = dict()
     if label is not None:
         plot_dict['label'] = label
     if vmin is not None and vmax is not None:
@@ -506,11 +511,8 @@ def make_timeseries(df, df_reg=None, column=None, label=None, ax=None, avg_windo
     if ax is None: 
         #First define the colors for the observations.
         obs_dict = dict(color='k', linestyle='-',marker='*', linewidth=1.2, markersize=6.)
-        if plot_dict is not None:
-            #Whatever is not defined in the yaml file is filled in with the obs_dict here.
-            plot_kwargs = {**obs_dict, **plot_dict}
-        else:
-            plot_kwargs = obs_dict
+        #Whatever is not defined in the yaml file is filled in with the obs_dict here.
+        plot_kwargs = {**obs_dict, **plot_dict}
         # create the figure
         if fig_dict is not None:
             f,ax = plt.subplots(**fig_dict)    
@@ -768,6 +770,11 @@ def make_diurnal_cycle(df, column=None, label=None, ax=None, avg_window=None, yl
     # set ylabel to column if not specified.
     if ylabel is None:
         ylabel = column
+    if plot_dict is None:
+        # Ensure plot_dict is a dictionary
+        # Setting a dict as the default will use the same dict each time
+        # Modifications will accumulate
+        plot_dict = dict()
     if label is not None:
         plot_dict['label'] = label
     if vmin is not None and vmax is not None:
@@ -779,11 +786,8 @@ def make_diurnal_cycle(df, column=None, label=None, ax=None, avg_window=None, yl
     if ax is None: 
         #First define the colors for the observations.
         obs_dict = dict(color='k', linestyle='-',marker='*', linewidth=1.2, markersize=6.)
-        if plot_dict is not None:
-            #Whatever is not defined in the yaml file is filled in with the obs_dict here.
-            plot_kwargs = {**obs_dict, **plot_dict}
-        else:
-            plot_kwargs = obs_dict
+        #Whatever is not defined in the yaml file is filled in with the obs_dict here.
+        plot_kwargs = {**obs_dict, **plot_dict}
         # create the figure
         if fig_dict is not None:
             f,ax = plt.subplots(**fig_dict)    
@@ -894,6 +898,11 @@ def make_taylor(df, df_reg=None, column_o=None, label_o='Obs', column_m=None, la
     if ylabel is None:
         ylabel = column_o
     #Then, if no plot has been created yet, create a plot and plot the first pair.
+    if plot_dict is None:
+        # Ensure plot_dict is a dictionary
+        # Setting a dict as the default will use the same dict each time
+        # Modifications will accumulate
+        plot_dict = dict()
 
     if dia is None:
         # create the figure
@@ -1178,16 +1187,18 @@ def calculate_boxplot(df, df_reg=None, column=None, label=None, plot_dict=None, 
         list of string labels to use in box-plot
 
     """
+    if plot_dict is None:
+        # Ensure plot_dict is a dictionary
+        # Setting a dict as the default will use the same dict each time
+        # Modifications will accumulate
+        plot_dict = dict()
     if comb_bx is None and label_bx is None:
         comb_bx = pd.DataFrame()
         label_bx = []
         #First define the colors for the observations.
         obs_dict = dict(color='gray', linestyle='-',marker='x', linewidth=1.2, markersize=6.)
-        if plot_dict is not None:
-            #Whatever is not defined in the yaml file is filled in with the obs_dict here.
-            plot_kwargs = {**obs_dict, **plot_dict}
-        else:
-            plot_kwargs = obs_dict
+        #Whatever is not defined in the yaml file is filled in with the obs_dict here.
+        plot_kwargs = {**obs_dict, **plot_dict}
     else:
         plot_kwargs = plot_dict
     #For all, a column to the dataframe and append the label info to the list.
@@ -1242,16 +1253,18 @@ def calculate_multi_boxplot(df, df_reg=None, region_name= None, interval_list=No
     df_reg_epa = pd.DataFrame()
     df_short =  pd.DataFrame()
 
+    if plot_dict is None:
+        # Ensure plot_dict is a dictionary
+        # Setting a dict as the default will use the same dict each time
+        # Modifications will accumulate
+        plot_dict = dict()
     if comb_bx is None and label_bx is None:
         comb_bx = pd.DataFrame()
         label_bx = [] 
         #First define the colors for the observations.
         obs_dict = dict(color='gray', linestyle='-',marker='x', linewidth=1.2, markersize=6.)
-        if plot_dict is not None:
-            #Whatever is not defined in the yaml file is filled in with the obs_dict here.
-            plot_kwargs = {**obs_dict, **plot_dict}
-        else:
-            plot_kwargs = obs_dict
+        #Whatever is not defined in the yaml file is filled in with the obs_dict here.
+        plot_kwargs = {**obs_dict, **plot_dict}
     else:
         plot_kwargs = plot_dict
     #For all, a column to the dataframe and append the label info to the list.
@@ -1668,7 +1681,7 @@ def make_rose_plot(rose_df,
         text_kwargs = def_text
         
     #Plot settings
-    fig = plt.figure(figsize = (8,8))
+    fig = plt.figure(figsize = (8,8))  # Use figdict?
     rect_set1 = [0.3, 0.1, 0.4, 0.8]
     rect_set2 = [0.98, 0.1, 0.4, 0.8]
 
@@ -1791,17 +1804,19 @@ def scorecard_step1_combine_df(df, df_reg=None, region_name=None, urban_rural_na
     """
     region_bx = pd.DataFrame()                   
     msa_bx = pd.DataFrame()                      
-    time_bx = pd.DataFrame()               
+    time_bx = pd.DataFrame()
+    if plot_dict is None:
+        # Ensure plot_dict is a dictionary
+        # Setting a dict as the default will use the same dict each time
+        # Modifications will accumulate
+        plot_dict = dict()
     if comb_bx is None and label_bx is None:
         comb_bx = pd.DataFrame()
         label_bx = []
         #First define the colors for the observations.
         obs_dict = dict(color='gray', linestyle='-',marker='x', linewidth=1.2, markersize=6.)
-        if plot_dict is not None:
-            #Whatever is not defined in the yaml file is filled in with the obs_dict here.
-            plot_kwargs = {**obs_dict, **plot_dict}
-        else:
-            plot_kwargs = obs_dict
+        #Whatever is not defined in the yaml file is filled in with the obs_dict here.
+        plot_kwargs = {**obs_dict, **plot_dict}
     else:
         plot_kwargs = plot_dict
 
