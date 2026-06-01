@@ -857,19 +857,10 @@ class analysis:
                         # calculate model no2 trop. columns. M.Li
                         # to fix the "time" duplicate error
                         model_obj = mod.obj
-                        i_no2_varname = [
-                            i
-                            for i, x in enumerate(obs_vars)
-                            if x == "nitrogendioxide_tropospheric_column"
-                        ]
+                        i_no2_varname = [i for i,x in enumerate(obs_vars) if x == 'nitrogendioxide_tropospheric_column']
                         if len(i_no2_varname) > 1:
-                            print(
-                                "The TROPOMI NO2 variable is matched to more than one model variable."
-                            )
-                            print(
-                                "Pairing is being done for model variable: "
-                                + keys[i_no2_varname[0]]
-                            )
+                            print('The TROPOMI NO2 variable is matched to more than one model variable.')
+                            print('Pairing is being done for model variable: '+keys[i_no2_varname[0]])
                         no2_varname = keys[i_no2_varname[0]]
 
                         if m.mod_to_overpass:
@@ -883,7 +874,7 @@ class analysis:
                                 model_obj, overpass_datetime, partial_col=no2_varname
                             )
                             # enforce dimension order is time, z, y, x
-                            model_obj = model_obj.transpose("time", "z", "y", "x", ...)
+                            model_obj = model_obj.transpose('time','z','y','x',...)
                         else:
                             print("Warning: The pairing_kwarg mod_to_overpass is False.")
                             print(
@@ -901,24 +892,64 @@ class analysis:
                             )
                         # Regrid observation to model grid without any modification
                         else:
-                            paired_data = no2util.trp_interp_swatogrd(
-                                obs.obj, model_obj, no2varname=no2_varname
-                            )
+                            paired_data = no2util.trp_interp_swatogrd(obs.obj, model_obj, no2varname=no2_varname)
+
 
                         p = pair()
 
-                        paired_data_cp = paired_data.sel(
-                            time=slice(self.start_time.date(), self.end_time.date())
-                        ).copy()
+                        paired_data_cp = paired_data.sel(time=slice(self.start_time.date(),self.end_time.date())).copy()
 
                         p.type = obs.obs_type
                         p.obs = obs.label
                         p.model = mod.label
                         p.model_vars = keys
+                        p.sat_method = obs.sat_method
                         p.obs_vars = obs_vars
-                        p.obj = paired_data_cp
-                        label = "{}_{}".format(p.obs, p.model)
+                        p.obj = paired_data_cp 
+                        label = '{}_{}'.format(p.obs,p.model)
 
+                        self.paired[label] = p
+    
+                    if obs.sat_type.startswith('tropomi_l2') and obs.sat_method == "apply_ak":
+                        from melodies_monet.util import sat_l2_swath_utility_tropomi as sutil
+                        if obs.sat_type == 'tropomi_l2_no2':
+                            sat_sp = 'NO2'
+                            sp = 'nitrogendioxide_tropospheric_column'
+                            key = "tropomi_l2_no2"
+                        elif obs.sat_type == 'tropomi_l2_hcho':
+                            sat_sp = 'HCHO'
+                            sp = 'formaldehyde_tropospheric_vertical_column'
+                            key = "tropomi_l2_hcho"
+                        elif obs.sat_type == 'tropomi_l2_co':
+                            sat_sp = 'CO'
+                            if "carbonmonoxide_total_column_corrected" in obs.variable_dict:
+                                sp = "carbonmonoxide_total_column_corrected"
+                            else:
+                                print("Are you sure you don't want the corrected variable?"
+                                      " Using carbonmonoxide_total_column")
+                                sp = "carbonmonoxide_total_column"
+                            key = "tropomi_l2_co"
+                        else:
+                            raise KeyError(f" You asked for {obs.sat_type}. "
+                                           + "Only NO2, HCHO and CO L2 data have been implemented")
+                        mod_sp = [
+                            k_sp for k_sp, v in mod.mapping[key].items() if v == sp
+                        ][0]
+                        #TODO: allow user to select regrid method in yaml
+                        paired_data_atswath = sutil.regrid_and_apply_ak(
+                            obs.obj, mod.obj, self.start_time, self.end_time, mod_var=mod_sp, sat_var=sp, sat_type=obs.sat_type, is_global=mod.is_global)
+                        paired_data_atgrid = sutil.back_to_structured_grid(paired_data_atswath, model_obj, is_global=mod.is_global)
+
+                        p = pair()
+                        p.type = obs.obs_type
+                        p.obs = obs.label
+                        p.sat_method = obs.sat_method
+                        p.model = mod.label
+                        p.model_vars = keys
+                        p.obs_vars = obs_vars
+                        p.obj = paired_data_atgrid
+                        label = "{}_{}".format(p.obs,p.model)
+                        p.filename = "{}.nc".format(label)
                         self.paired[label] = p
 
                     if "tempo_l2" in obs.sat_type:
