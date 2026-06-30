@@ -62,8 +62,8 @@ napoleon_preprocess_types = True
 
 nb_execution_timeout = 300  # in seconds, for each notebook cell (default: 30)
 nb_execution_mode = "auto"  # don't execute if all cells have output (default)
-nb_execution_mode = "cache"  # to speed build when working on other things
-nb_execution_mode = "off"
+# nb_execution_mode = "cache"  # to speed build when working on other things
+# nb_execution_mode = "off"
 nb_execution_excludepatterns = [
     "examples/AEROMMA_*.ipynb",
     "examples/airnow_*.ipynb",
